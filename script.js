@@ -22,7 +22,7 @@ buttons.forEach(button => {
                 y = getNum();
                 operation();
             }
-            
+
             x = getNum();
             
             operator = e.target.textContent;
