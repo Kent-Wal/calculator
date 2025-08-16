@@ -8,23 +8,27 @@ let lastPressed = null;
 let decimal = false;
 
 const screenCurrent = document.querySelector('.bottom');
+const screenPast = document.querySelector('.top');
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
         if (e.target.className === 'operator') {
             if (lastPressed === 'operator') {
                 operator = e.target.textContent;
+                updateTopLineOperation();
                 return;
             }
             if (clicked == true) {
                 y = getNum();
                 operation();
             }
+            
             x = getNum();
+            
             operator = e.target.textContent;
             clicked = true;
-
             lastPressed = 'operator';
+            updateTopLineOperation();
         }
         else if (e.target.className === 'clear') {
             clearScreen();
@@ -40,6 +44,8 @@ buttons.forEach(button => {
             if (lastPressed !== 'operator') {
                 y = getNum();
                 operation();
+
+                updateTopLineEquals();
 
                 lastPressed = '=';
             }
@@ -66,8 +72,17 @@ function updateScreen(buttonChoice) {
     else screenCurrent.textContent = screenCurrent.textContent + buttonChoice;
 }
 
+function updateTopLineOperation() {
+    screenPast.textContent = `${x} ${operator}`;
+}
+
+function updateTopLineEquals(){
+    screenPast.textContent = screenPast.textContent + ` ${y} =`;
+}
+
 function clearScreen() {
     screenCurrent.textContent = '0';
+    screenPast.textContent = '';
     x = 0;
     y = 0;
     operator = "";
