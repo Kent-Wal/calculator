@@ -79,9 +79,9 @@ function deleteNum() {
     if (screenCurrent.textContent === '0') return;
     else {
         let num = screenCurrent.textContent.split('');
-        num.pop();
+        let temp = num.pop();
 
-        if (screenCurrent.textContent === '.') decimal = false;
+        if (temp === '.') decimal = false;
         if (num.length === 0) screenCurrent.textContent = '0';
         else screenCurrent.textContent = num.join('');
     }
